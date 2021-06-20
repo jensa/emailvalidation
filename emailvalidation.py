@@ -34,7 +34,7 @@ if args.guaranteed:
         I'm going to need you to confirm your email. 
         Since I wouldnt want to set up a http server here just to wait for your response, 
         you can simply email me at {email_server_acc} with the string "valid". 
-        I will interpret a non/response within 24 hours as an invalid email. Thanks!
+        I will interpret a non-response within 24 hours as an invalid email. Thanks!
         """
         server.sendmail(email_server_acc, args.email, message)
         exit()    
