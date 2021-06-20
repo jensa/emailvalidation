@@ -2,8 +2,8 @@ from argparse import ArgumentParser
 import re
 parser = ArgumentParser()
 parser.add_argument("-g", "--guaranteed", action="store_true", help="Guarantee validation by sending a confirmation email and waiting for response. Requires a gmail account for sending mail.")
-parser.add_argument("-es", "--email_server_account", help="Gmail server account to use for email confirmation sendout")
-parser.add_argument("-esp", "--email_server_password", help="Gmail Server account password")
+parser.add_argument("-es", "--email_server_account", metavar="", help="Gmail server account to use for email confirmation sendout")
+parser.add_argument("-esp", "--email_server_password", metavar="", help="Gmail Server account password")
 parser.add_argument("-d", "--use_dependency", action="store_true", help="use the email-validator package to validate the email")
 parser.add_argument("email", help='email adress to validate')
 
@@ -24,10 +24,7 @@ if args.guaranteed:
     email_server_acc = args.email_server_account if args.email_server_account else input("Gmail address (for sending confirmation email):")
     password = args.email_server_password if args.email_server_password else input("Password:")
 
-    # Create a secure SSL context
-    context = ssl.create_default_context()
-
-    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=ssl.create_default_context()) as server:
         server.login(email_server_acc, password)
         message = f"""\
         Confirm email
